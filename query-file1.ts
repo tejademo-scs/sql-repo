@@ -128,7 +128,7 @@ class CIsController extends ApplicationHelper {
         ? `SELECT COUNT(*)  from con_cmdb.con_cmdb_configurationitem WHERE ${queryGenerator.getWhereConditions(whereClause)} ${sortingQuery}`
         : `SELECT COUNT(*)  from con_cmdb.con_cmdb_configurationitem WHERE con_cmdb_clientid= :clientid ${sortingQuery}`;
 
-      const [{ count }] = <any>await sequelize.query(selectCountClause, {
+      const count = await sequelize.models.YourModel.count(, {
         replacements: { clientid: clientid },
         type: Sequelize.QueryTypes.SELECT,
       });
