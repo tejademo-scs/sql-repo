@@ -188,7 +188,10 @@
                     `SELECT COUNT(*)  from  con_cmdb.con_cmdb_configurationitem WHERE ${queryGenerator.getWhereConditions(whereClause)} ${sortingQuery}` :
                     `SELECT COUNT(*)  from  con_cmdb.con_cmdb_configurationitem WHERE ${queryGenerator.getWhereConditions(whereClause)} ${sortingQuery}`;
 
-                const [{ count }] = <any>await sequelize.query(selectCountClause, { type: Sequelize.QueryTypes.SELECT });
+const [{ count }] = <any>await sequelize.query(selectCountClause, {
+    type: Sequelize.QueryTypes.SELECT,
+    replacements: { clientid: clientid },
+});
                 const pages = Math.ceil(count / (size ? Number(size) : MIN_SIZE));
                 return res.status(200).send({
                     message: response.info_configuurationItemsFetchedSuccessfully,
