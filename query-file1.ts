@@ -805,11 +805,10 @@ class CIsController extends ApplicationHelper {
       const isValidTableName = /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(ciCategory);
       if (!isValidTableName) return next(new Error('Table name is invalid, Please check once'))
       if (!Boolean(ciCategory)) return next(new Error(response.info_ci_categoryRequired));
-      const ciCategoryTable = <any>await sequelize.query(
-        `SELECT * from con_cmdb."${ciCategory}" WHERE con_cmdb_unique_id= :unique_id AND con_cmdb_clientid= :clientid
-                    `,
-        { replacements: { unique_id: unique_id, clientid: clientid }, type: Sequelize.QueryTypes.SELECT }
-      );
+     const ciCategoryTable = await sequelize.query(
+    `SELECT * from con_cmdb."${ciCategory}" WHERE con_cmdb_unique_id= :unique_id AND con_cmdb_clientid= :clientid`,
+    { replacements: { unique_id: unique_id, clientid: clientid }, type: Sequelize.QueryTypes.SELECT }
+);
 
       const attributesMap = [ciCategoryTable].map((attr: any) => {
         const keys = Object.keys(attr[0]).map(
