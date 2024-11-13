@@ -15,3 +15,7 @@ async openCamera() {
     this.notificationSvc.showNotification(error.errorCode, error.message, null, GxMessageType.Error);
   }
 }
+
+selectedAssets(event: any) {
+  this.assetSelection.next(event);
+}
